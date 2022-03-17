@@ -2,7 +2,7 @@ import { act } from "react-dom/test-utils";
 import { randomCategories } from "../../factories/category";
 import { LoadCategoriesAction } from "../../types/actions";
 import Category from "../../types/category";
-import actionTypes from "./actionTypes";
+import categoriesActionTypes from "./categoriesActionTypes";
 import { loadCategoriesAction } from "./categoriesActionCreators";
 
 describe("Given a loadCategoriesAction function", () => {
@@ -11,7 +11,7 @@ describe("Given a loadCategoriesAction function", () => {
       const categories: Category[] = randomCategories(2);
 
       const expectedAction: LoadCategoriesAction = {
-        type: actionTypes.load,
+        type: categoriesActionTypes.loadCategories,
         categories,
       };
 

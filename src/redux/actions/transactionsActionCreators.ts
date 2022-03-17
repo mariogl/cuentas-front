@@ -6,39 +6,39 @@ import {
   UpdateTransactionAction,
 } from "../../types/actions";
 import Transaction from "../../types/transaction";
-import actionTypes from "./actionTypes";
+import categoriesActionTypes from "./categoriesActionTypes";
 
 export const loadTransactionsAction = (
   transactions: Transaction[]
 ): LoadTransactionsAction => ({
-  type: actionTypes.load,
+  type: categoriesActionTypes.loadCategories,
   transactions,
 });
 
 export const filterTransactionsAction = (
   filter = ""
 ): FilterTransactionsAction => ({
-  type: actionTypes.filter,
+  type: categoriesActionTypes.filterCategories,
   filter,
 });
 
 export const createTransactionAction = (
   transaction: Transaction
 ): CreateTransactionAction => ({
-  type: actionTypes.create,
+  type: categoriesActionTypes.createCategory,
   transaction,
 });
 
 export const updateTransactionAction = (
   transaction: Transaction
 ): UpdateTransactionAction => ({
-  type: actionTypes.update,
+  type: categoriesActionTypes.updateCategory,
   transaction,
 });
 
 export const deleteTransactionAction = (
   id: string
 ): DeleteTransactionAction => ({
-  type: actionTypes.delete,
+  type: categoriesActionTypes.deleteCategory,
   id,
 });

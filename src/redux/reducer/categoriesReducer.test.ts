@@ -1,7 +1,7 @@
 import { randomCategories } from "../../factories/category";
 import { Action, LoadCategoriesAction } from "../../types/actions";
 import Category from "../../types/category";
-import actionTypes from "../actions/actionTypes";
+import categoriesActionTypes from "../actions/categoriesActionTypes";
 import categoriesReducer from "./categoriesReducer";
 
 describe("Given a categoriesReducer function", () => {
@@ -10,7 +10,7 @@ describe("Given a categoriesReducer function", () => {
       const initialCategories: Category[] = [];
       const newCategories: Category[] = randomCategories();
       const action: LoadCategoriesAction = {
-        type: actionTypes.load,
+        type: categoriesActionTypes.loadCategories,
         categories: newCategories,
       };
 

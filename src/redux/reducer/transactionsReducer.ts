@@ -7,7 +7,7 @@ import {
   UpdateTransactionAction,
 } from "../../types/actions";
 import Transaction from "../../types/transaction";
-import actionTypes from "../actions/actionTypes";
+import transactionsActionTypes from "../actions/transactionsActionTypes";
 
 export interface TransactionsState {
   list: Transaction[];
@@ -24,19 +24,19 @@ const transactionsReducer = (
   let newTransactions: TransactionsState;
 
   switch (action.type) {
-    case actionTypes.load:
+    case transactionsActionTypes.loadTransactions:
       newTransactions = {
         ...transactions,
         list: [...(action as LoadTransactionsAction).transactions],
       };
       break;
-    case actionTypes.filter:
+    case transactionsActionTypes.filterTransactions:
       newTransactions = {
         ...transactions,
         filterBy: (action as FilterTransactionsAction).filter,
       };
       break;
-    case actionTypes.create:
+    case transactionsActionTypes.createTransaction:
       newTransactions = {
         ...transactions,
         list: [
@@ -45,7 +45,7 @@ const transactionsReducer = (
         ],
       };
       break;
-    case actionTypes.update:
+    case transactionsActionTypes.updateTransaction:
       newTransactions = {
         ...transactions,
         list: transactions.list.map((transaction) =>
@@ -55,7 +55,7 @@ const transactionsReducer = (
         ),
       };
       break;
-    case actionTypes.delete:
+    case transactionsActionTypes.deleteTransaction:
       newTransactions = {
         ...transactions,
         list: transactions.list.filter(

@@ -1,10 +1,10 @@
 import { LoadCategoriesAction } from "../../types/actions";
 import Category from "../../types/category";
-import actionTypes from "./actionTypes";
+import categoriesActionTypes from "./categoriesActionTypes";
 
 export const loadCategoriesAction = (
   categories: Category[]
 ): LoadCategoriesAction => ({
-  type: actionTypes.load,
+  type: categoriesActionTypes.loadCategories,
   categories,
 });

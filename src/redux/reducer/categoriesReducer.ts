@@ -1,6 +1,6 @@
 import { Action, LoadCategoriesAction } from "../../types/actions";
 import Category from "../../types/category";
-import actionTypes from "../actions/actionTypes";
+import categoriesActionTypes from "../actions/categoriesActionTypes";
 
 const categoriesReducer = (
   categories: Category[] = [],
@@ -9,7 +9,7 @@ const categoriesReducer = (
   let newCategories: Category[];
 
   switch (action.type) {
-    case actionTypes.load:
+    case categoriesActionTypes.loadCategories:
       newCategories = [...(action as LoadCategoriesAction).categories];
       break;
     default:
