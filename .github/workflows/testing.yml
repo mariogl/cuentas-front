@@ -1,0 +1,20 @@
+name: Testing on push
+
+on: push
+
+jobs:
+  test:
+    name: Test passes
+    runs-on: ubuntu-latest
+    env:
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Install modules
+        run: npm ci
+
+      - name: Testing
+        run: npm run test
