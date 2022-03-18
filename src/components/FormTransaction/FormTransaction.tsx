@@ -38,7 +38,10 @@ const FormTransaction = ({
 
   const changeData = (event: ChangeEvent) => {
     event.preventDefault();
-    const value = (event.target as HTMLInputElement | HTMLSelectElement).value;
+    const value =
+      event.target.id === "date"
+        ? new Date((event.target as HTMLInputElement).value)
+        : (event.target as HTMLInputElement | HTMLSelectElement).value;
     setFormData({
       ...formData,
       [event.target.id]: value,
@@ -85,7 +88,7 @@ const FormTransaction = ({
         <Col xs={6}>
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Categoría</Form.Label>
-            <Form.Select value={formData.category} onChange={changeData}>
+            <Form.Select value={formData.category.id} onChange={changeData}>
               <option value="">Elige categoría</option>
               {categoriesSelect.map((category) => (
                 <option key={category.id} value={category.id}>
@@ -93,6 +96,16 @@ const FormTransaction = ({
                 </option>
               ))}
             </Form.Select>
+          </Form.Group>
+        </Col>
+        <Col xs={6}>
+          <Form.Group className="mb-3" controlId="date">
+            <Form.Label>Fecha</Form.Label>
+            <Form.Control
+              type="date"
+              value={formData.date.toISOString().split("T")[0]}
+              onChange={changeData}
+            />
           </Form.Group>
         </Col>
       </Row>

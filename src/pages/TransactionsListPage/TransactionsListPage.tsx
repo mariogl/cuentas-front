@@ -18,7 +18,7 @@ const TransactionsListPage = (): JSX.Element => {
     setTransactions(
       filterBy
         ? transactionsList.filter(
-            (transaction) => transaction.category === filterBy
+            (transaction) => transaction.category.name === filterBy
           )
         : transactionsList
     );
