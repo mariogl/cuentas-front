@@ -1,5 +1,4 @@
-import axios from "axios";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,52 +18,30 @@ interface CategorySelect {
 
 interface FormTransactionProps {
   id?: string;
+  categories: Category[];
 }
 
-const FormTransaction = ({ id }: FormTransactionProps): JSX.Element => {
+const FormTransaction = ({
+  id,
+  categories,
+}: FormTransactionProps): JSX.Element => {
   const initialData: Transaction = blankTransaction();
-
-  useEffect(() => {
-    if (id) {
-      (async () => {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_API_URL}transactions/${id}`,
-          {
-            headers: {
-              authorization: `Bearer ${process.env.REACT_APP_TEMPORARY_JWT}`,
-            },
-          }
-        );
-        setFormData({
-          ...data.transaction,
-        });
-      })();
-    }
-  }, [id]);
 
   const [formData, setFormData] = useState<Transaction>(initialData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState<CategorySelect[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get<{ categories: Category[] }>(
-        `${process.env.REACT_APP_API_URL}categories`,
-        {
-          headers: {
-            authorization: `Bearer ${process.env.REACT_APP_TEMPORARY_JWT}`,
-          },
-        }
-      );
-      setCategories(data.categories.map(({ id, name }) => ({ id, name })));
-    })();
-  }, []);
+  const categoriesSelect: CategorySelect[] = categories.map(({ id, name }) => ({
+    id,
+    name,
+  }));
 
   const changeData = (event: ChangeEvent) => {
     event.preventDefault();
-    const value = (event.target as HTMLInputElement).value;
+    const value =
+      event.target.id === "date"
+        ? new Date((event.target as HTMLInputElement).value)
+        : (event.target as HTMLInputElement | HTMLSelectElement).value;
     setFormData({
       ...formData,
       [event.target.id]: value,
@@ -73,7 +50,7 @@ const FormTransaction = ({ id }: FormTransactionProps): JSX.Element => {
 
   const submitForm = async (event: FormEvent) => {
     event.preventDefault();
-    if (validateData()) {
+    if (validateData) {
       await dispatch(
         id ? updateTransactionThunk(formData) : createTransactionThunk(formData)
       );
@@ -81,15 +58,13 @@ const FormTransaction = ({ id }: FormTransactionProps): JSX.Element => {
     }
   };
 
-  const validateData = (): boolean => {
-    return !Object.values(formData).includes("");
-  };
+  const validateData = !Object.values(formData).slice(1).includes("");
 
   return (
     <Form noValidate autoComplete="off" onSubmit={submitForm}>
       <Row>
         <Col xs={6}>
-          <Form.Group className="mb-3" controlId="name">
+          <Form.Group className="mb-3" controlId="description">
             <Form.Label>Descripción</Form.Label>
             <Form.Control
               type="text"
@@ -99,7 +74,7 @@ const FormTransaction = ({ id }: FormTransactionProps): JSX.Element => {
           </Form.Group>
         </Col>
         <Col xs={6}>
-          <Form.Group className="mb-3" controlId="student">
+          <Form.Group className="mb-3" controlId="quantity">
             <Form.Label>Cantidad</Form.Label>
             <Form.Control
               type="number"
@@ -113,9 +88,9 @@ const FormTransaction = ({ id }: FormTransactionProps): JSX.Element => {
         <Col xs={6}>
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Categoría</Form.Label>
-            <Form.Select value={formData.category} onChange={changeData}>
+            <Form.Select value={formData.category.id} onChange={changeData}>
               <option value="">Elige categoría</option>
-              {categories.map((category) => (
+              {categoriesSelect.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -123,10 +98,20 @@ const FormTransaction = ({ id }: FormTransactionProps): JSX.Element => {
             </Form.Select>
           </Form.Group>
         </Col>
+        <Col xs={6}>
+          <Form.Group className="mb-3" controlId="date">
+            <Form.Label>Fecha</Form.Label>
+            <Form.Control
+              type="date"
+              value={formData.date.toISOString().split("T")[0]}
+              onChange={changeData}
+            />
+          </Form.Group>
+        </Col>
       </Row>
       <Row>
         <Col xs={12}>
-          <Button type="submit" variant="dark" disabled={!validateData()}>
+          <Button type="submit" variant="dark" disabled={!validateData}>
             {id ? "Modificar" : "Crear"}
           </Button>
         </Col>

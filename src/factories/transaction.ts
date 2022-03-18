@@ -11,7 +11,12 @@ const getTransaction = (blank = false) => ({
   id: blank ? "" : mongoId(),
   description: blank ? "" : faker.name.findName(),
   quantity: blank ? 0 : faker.datatype.number(),
-  category: blank ? "" : mongoId(),
+  category: {
+    id: blank ? "" : mongoId(),
+    name: blank ? "" : faker.name.findName(),
+    icon: blank ? "" : faker.name.findName(),
+  },
+  date: blank ? new Date() : faker.date.recent(10),
 });
 
 const transactionFactory = Factory.define<Transaction>(() => getTransaction());

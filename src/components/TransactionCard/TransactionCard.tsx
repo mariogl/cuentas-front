@@ -17,9 +17,9 @@ const TransactionCard = ({
 }: TransactionCardProps): JSX.Element => {
   return (
     <StyledArticle>
-      <StyledCategory>{category}</StyledCategory>
+      <StyledCategory>{category.name}</StyledCategory>
       <StyledTitle>
-        <span>{description}</span>{" "}
+        <span>{description}</span> <span>{quantity}€</span>
         <Link to={routes.editTransactionWithId(id)}>
           <FaPen />
         </Link>

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledArticle = styled.article`
-  color: #fff;
   padding: 10px;
   padding-bottom: 0;
   font-size: 12px;
