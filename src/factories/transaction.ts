@@ -11,6 +11,7 @@ const getTransaction = (blank = false) => ({
   id: blank ? "" : mongoId(),
   description: blank ? "" : faker.name.findName(),
   quantity: blank ? 0 : faker.datatype.number(),
+  balance: blank ? 0 : faker.datatype.number(),
   category: {
     id: blank ? "" : mongoId(),
     name: blank ? "" : faker.name.findName(),
