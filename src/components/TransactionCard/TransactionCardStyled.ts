@@ -1,10 +1,11 @@
+import { Row } from "react-bootstrap";
 import styled from "styled-components";
 
-export const StyledArticle = styled.article`
+export const StyledArticle = styled(Row)`
   padding: 10px;
   padding-bottom: 0;
-  font-size: 12px;
   position: relative;
+  font-size: 16px;
   .danger {
     background-color: red;
     display: inline-block;
@@ -12,14 +13,22 @@ export const StyledArticle = styled.article`
 `;
 
 export const StyledCategory = styled.span`
-  font-size: 1.1em;
+  font-size: 0.9em;
+`;
+export const StyledDate = styled.span`
+  font-size: 0.9em;
 `;
 
-export const StyledTitle = styled.h3`
-  font-size: 1.5em;
+export const StyledDescription = styled.p`
+  font-size: 1.1em;
+  margin-bottom: 0;
   a {
     color: inherit;
     margin-left: 10px;
+    display: none;
+  }
+  &:hover a {
+    display: inline;
   }
 `;
 
