@@ -17,6 +17,14 @@ const getTransaction = (blank = false) => ({
     name: blank ? "" : faker.name.findName(),
     icon: blank ? "" : faker.name.findName(),
   },
+  tags: blank
+    ? []
+    : [
+        {
+          id: mongoId(),
+          name: faker.name.findName(),
+        },
+      ],
   date: blank ? new Date() : faker.date.recent(10),
 });
 

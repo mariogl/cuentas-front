@@ -8,6 +8,7 @@ interface Transaction {
     name: string;
     icon: string;
   };
+  tags: { id: string; name: string }[];
   date: Date;
 }
 
