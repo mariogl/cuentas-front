@@ -1,5 +1,6 @@
 import { Action } from "redux";
 import {
+  AddTagToTransactionAction,
   CreateTransactionAction,
   DeleteTransactionAction,
   FilterTransactionsAction,
@@ -61,6 +62,22 @@ const transactionsReducer = (
         list: transactions.list.filter(
           (transaction) =>
             transaction.id !== (action as DeleteTransactionAction).id
+        ),
+      };
+      break;
+    case transactionsActionTypes.addTagToTransaction:
+      newTransactions = {
+        ...transactions,
+        list: transactions.list.map((transaction) =>
+          transaction.id === (action as AddTagToTransactionAction).transactionId
+            ? {
+                ...transaction,
+                tags: [
+                  ...transaction.tags,
+                  (action as AddTagToTransactionAction).tag,
+                ],
+              }
+            : { ...transaction }
         ),
       };
       break;

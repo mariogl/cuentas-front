@@ -1,10 +1,12 @@
 import {
+  AddTagToTransactionAction,
   CreateTransactionAction,
   DeleteTransactionAction,
   FilterTransactionsAction,
   LoadTransactionsAction,
   UpdateTransactionAction,
 } from "../../types/actions";
+import Tag from "../../types/tag";
 import Transaction from "../../types/transaction";
 import transactionsActionTypes from "./transactionsActionTypes";
 
@@ -41,4 +43,13 @@ export const deleteTransactionAction = (
 ): DeleteTransactionAction => ({
   type: transactionsActionTypes.deleteTransaction,
   id,
+});
+
+export const addTagToTransactionAction = (
+  transactionId: string,
+  tag: Tag
+): AddTagToTransactionAction => ({
+  type: transactionsActionTypes.addTagToTransaction,
+  tag,
+  transactionId,
 });

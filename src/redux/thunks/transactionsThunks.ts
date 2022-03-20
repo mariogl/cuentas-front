@@ -1,13 +1,16 @@
 import axios from "axios";
 import { Dispatch } from "react";
 import {
+  AddTagToTransactionAction,
   CreateTransactionAction,
   DeleteTransactionAction,
   LoadTransactionsAction,
   UpdateTransactionAction,
 } from "../../types/actions";
+import Tag from "../../types/tag";
 import Transaction from "../../types/transaction";
 import {
+  addTagToTransactionAction,
   createTransactionAction,
   deleteTransactionAction,
   loadTransactionsAction,
@@ -55,6 +58,25 @@ export const updateTransactionThunk =
       }
     );
     dispatch(updateTransactionAction(data.transaction));
+  };
+
+export const addTagToTransactionThunk =
+  (transactionId: string, tag: Tag) =>
+  async (dispatch: Dispatch<AddTagToTransactionAction>) => {
+    const apiUrl = `${process.env.REACT_APP_API_URL}transactions/tag`;
+    const { data } = await axios.post<{ transaction: Transaction }>(
+      apiUrl,
+      {
+        transactionId,
+        tagId: tag.id,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${process.env.REACT_APP_TEMPORARY_JWT}`,
+        },
+      }
+    );
+    dispatch(addTagToTransactionAction(transactionId, tag));
   };
 
 export const deleteTransactionThunk =
