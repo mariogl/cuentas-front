@@ -1,4 +1,5 @@
 import Category from "./category";
+import Tag from "./tag";
 import Transaction from "./transaction";
 
 export interface Action {
@@ -24,6 +25,10 @@ export interface UpdateTransactionAction extends Action {
   transaction: Transaction;
 }
 
+export interface AddTagToTransactionAction extends Action {
+  transactionId: string;
+  tag: Tag;
+}
 export interface DeleteTransactionAction extends Action {
   id: string;
 }

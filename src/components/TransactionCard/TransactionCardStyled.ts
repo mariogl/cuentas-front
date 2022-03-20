@@ -1,4 +1,5 @@
 import { Row } from "react-bootstrap";
+import { FaPlus, FaTimes } from "react-icons/fa";
 import styled from "styled-components";
 
 export const StyledArticle = styled(Row)`
@@ -22,6 +23,11 @@ export const StyledDate = styled.span`
 
 export const StyledTags = styled.span`
   font-size: 0.9em;
+  position: relative;
+  bottom: 2px;
+  a {
+    color: inherit;
+  }
 `;
 
 export const StyledDescription = styled.p`
@@ -56,4 +62,24 @@ export const StyledLogo = styled.span`
   position: absolute;
   right: 10px;
   top: 40px;
+`;
+
+export const StyledPlus = styled(FaPlus)`
+  border-color: inherit;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+`;
+
+export const StyledClose = styled(FaTimes)`
+  border-color: inherit;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  padding: 2px;
 `;
