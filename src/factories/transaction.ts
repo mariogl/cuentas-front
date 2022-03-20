@@ -1,19 +1,15 @@
 import faker from "@faker-js/faker";
 import { Factory } from "fishery";
+import ObjectID from "bson-objectid";
 import Transaction from "../types/transaction";
 
-const mongoId = () =>
-  ((s = (n: number) => Math.floor(n).toString(16)) =>
-    s(Date.now() / 1000) +
-    " ".repeat(16).replace(/./g, () => s(Math.random() * 16)))();
-
 const getTransaction = (blank = false) => ({
-  id: blank ? "" : mongoId(),
+  id: blank ? "" : ObjectID().toHexString(),
   description: blank ? "" : faker.name.findName(),
   quantity: blank ? 0 : faker.datatype.number(),
   balance: blank ? 0 : faker.datatype.number(),
   category: {
-    id: blank ? "" : mongoId(),
+    id: blank ? "" : ObjectID().toHexString(),
     name: blank ? "" : faker.name.findName(),
     icon: blank ? "" : faker.name.findName(),
   },
@@ -21,7 +17,7 @@ const getTransaction = (blank = false) => ({
     ? []
     : [
         {
-          id: mongoId(),
+          id: ObjectID().toHexString(),
           name: faker.name.findName(),
         },
       ],

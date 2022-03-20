@@ -48,10 +48,10 @@ const FormTransaction = ({
     });
   };
 
-  const submitForm = async (event: FormEvent) => {
+  const submitForm = (event: FormEvent) => {
     event.preventDefault();
     if (validateData) {
-      await dispatch(
+      dispatch(
         id ? updateTransactionThunk(formData) : createTransactionThunk(formData)
       );
       navigate(routes.listTransactions);

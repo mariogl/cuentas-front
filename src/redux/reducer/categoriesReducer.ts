@@ -8,12 +8,10 @@ const categoriesReducer = (
 ): Category[] => {
   let newCategories: Category[];
 
-  switch (action.type) {
-    case categoriesActionTypes.loadCategories:
-      newCategories = [...(action as LoadCategoriesAction).categories];
-      break;
-    default:
-      newCategories = [...categories];
+  if (action.type === categoriesActionTypes.loadCategories) {
+    newCategories = [...(action as LoadCategoriesAction).categories];
+  } else {
+    newCategories = [...categories];
   }
 
   return newCategories;
