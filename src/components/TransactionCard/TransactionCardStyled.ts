@@ -15,7 +15,12 @@ export const StyledArticle = styled(Row)`
 export const StyledCategory = styled.span`
   font-size: 0.9em;
 `;
+
 export const StyledDate = styled.span`
+  font-size: 0.9em;
+`;
+
+export const StyledTags = styled.span`
   font-size: 0.9em;
 `;
 

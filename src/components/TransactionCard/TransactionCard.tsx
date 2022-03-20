@@ -5,6 +5,7 @@ import {
   StyledCategory,
   StyledDate,
   StyledDescription,
+  StyledTags,
 } from "./TransactionCardStyled";
 import Transaction from "../../types/transaction";
 import routes from "../../routes";
@@ -15,8 +16,14 @@ interface TransactionCardProps {
 }
 
 const TransactionCard = ({
-  transaction: { id, category, description, quantity, balance, date },
+  transaction: { id, category, tags, description, quantity, balance, date },
 }: TransactionCardProps): JSX.Element => {
+  const formatedTags = tags?.map((tag, i: number) => (
+    <Link to={routes.filterTagWithId(tag.id)}>
+      {tag.name}
+      {i < tags.length ? ", " : ""}
+    </Link>
+  ));
   return (
     <StyledArticle>
       <Col xs={2}>
@@ -30,6 +37,7 @@ const TransactionCard = ({
           </Link>
         </StyledDescription>
         <StyledDate>{new Date(date).toLocaleDateString()}</StyledDate>
+        <StyledTags>{formatedTags}</StyledTags>
       </Col>
       <Col xs={2}>{quantity}€</Col>
       <Col xs={2}>{balance}€</Col>
