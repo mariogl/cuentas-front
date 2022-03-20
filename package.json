@@ -69,7 +69,7 @@
   "devDependencies": {
     "@octokit/rest": "^18.12.0",
     "@types/styled-components": "^5.1.24",
-    "bson-objectid": "^2.0.2",
+    "bson-objectid": "^2.0.3",
     "husky": "^7.0.0"
   }
 }

@@ -12,8 +12,6 @@ const FormTransactionPage = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (id) {
-    }
     (async () => {
       dispatch(loadCategoriesThunk());
     })();

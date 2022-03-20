@@ -64,7 +64,7 @@ export const addTagToTransactionThunk =
   (transactionId: string, tag: Tag) =>
   async (dispatch: Dispatch<AddTagToTransactionAction>) => {
     const apiUrl = `${process.env.REACT_APP_API_URL}transactions/tag`;
-    const { data } = await axios.post<{ transaction: Transaction }>(
+    await axios.post<{ transaction: Transaction }>(
       apiUrl,
       {
         transactionId,
