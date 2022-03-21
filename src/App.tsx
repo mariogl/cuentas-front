@@ -4,6 +4,7 @@ import TransactionsListPage from "./pages/TransactionsListPage/TransactionsListP
 import styled from "styled-components";
 import FormTransactionPage from "./pages/FormTransactionPage/FormTransactionPage";
 import routes from "./routes";
+import FormXLSXPage from "./pages/FormXLSXPage/FormXLSXPage";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -11,6 +12,7 @@ const StyledHeader = styled.div`
   a {
     color: inherit;
     text-decoration: none;
+    margin-left: 10px;
     &.active {
       font-weight: bold;
     }
@@ -22,14 +24,15 @@ const App = () => {
     <>
       <Container fluid>
         <StyledHeader as="header">
-          <Col as="h1" xs={9}>
+          <Col as="h1" xs={6}>
             Transacciones
           </Col>
-          <Col xs={3} className="text-end">
+          <Col xs={6} className="text-end">
             <NavLink to={routes.listTransactions} end>
               Transacciones
             </NavLink>{" "}
             <NavLink to={routes.newTransaction}>Nueva transacción</NavLink>
+            <NavLink to={routes.uploadXLSX}>Cargar datos</NavLink>
           </Col>
         </StyledHeader>
         <Row as="main">
@@ -47,6 +50,7 @@ const App = () => {
                 path={routes.editTransaction}
                 element={<FormTransactionPage />}
               />
+              <Route path={routes.uploadXLSX} element={<FormXLSXPage />} />
               <Route
                 path="/"
                 element={<Navigate to={routes.listTransactions} />}
