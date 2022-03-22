@@ -20,12 +20,24 @@ import {
 export const loadTransactionsThunk =
   () => async (dispatch: Dispatch<LoadTransactionsAction>) => {
     const apiUrl = `${process.env.REACT_APP_API_URL}transactions`;
-    const { data } = await axios.get<{ transactions: Transaction[] }>(apiUrl, {
+    const { data } = await axios.get<{
+      transactions: Transaction[];
+      expenses: number;
+      income: number;
+      sum: number;
+    }>(apiUrl, {
       headers: {
         authorization: `Bearer ${process.env.REACT_APP_TEMPORARY_JWT}`,
       },
     });
-    dispatch(loadTransactionsAction(data.transactions));
+    dispatch(
+      loadTransactionsAction(
+        data.transactions,
+        data.expenses,
+        data.income,
+        data.sum
+      )
+    );
   };
 
 export const createTransactionThunk =

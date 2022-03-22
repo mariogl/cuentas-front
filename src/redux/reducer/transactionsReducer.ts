@@ -12,12 +12,18 @@ import transactionsActionTypes from "../actions/transactionsActionTypes";
 
 export interface TransactionsState {
   list: Transaction[];
+  expenses: number;
+  income: number;
+  sum: number;
   filterBy: string;
 }
 
 const transactionsReducer = (
   transactions: TransactionsState = {
     list: [],
+    expenses: 0,
+    income: 0,
+    sum: 0,
     filterBy: "",
   },
   action: Action = { type: "" }
@@ -29,6 +35,9 @@ const transactionsReducer = (
       newTransactions = {
         ...transactions,
         list: [...(action as LoadTransactionsAction).transactions],
+        expenses: (action as LoadTransactionsAction).expenses,
+        income: (action as LoadTransactionsAction).income,
+        sum: (action as LoadTransactionsAction).sum,
       };
       break;
     case transactionsActionTypes.filterTransactions:

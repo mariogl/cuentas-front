@@ -11,10 +11,16 @@ import Transaction from "../../types/transaction";
 import transactionsActionTypes from "./transactionsActionTypes";
 
 export const loadTransactionsAction = (
-  transactions: Transaction[]
+  transactions: Transaction[],
+  expenses: number,
+  income: number,
+  sum: number
 ): LoadTransactionsAction => ({
   type: transactionsActionTypes.loadTransactions,
   transactions,
+  expenses,
+  income,
+  sum,
 });
 
 export const filterTransactionsAction = (

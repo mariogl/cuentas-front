@@ -11,6 +11,9 @@ export interface LoadCategoriesAction extends Action {
 
 export interface LoadTransactionsAction extends Action {
   transactions: Transaction[];
+  expenses: number;
+  income: number;
+  sum: number;
 }
 
 export interface FilterTransactionsAction extends Action {
