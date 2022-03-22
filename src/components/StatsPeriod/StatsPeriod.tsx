@@ -1,17 +1,18 @@
-import { getMonth } from "date-fns";
+import { getMonth, getQuarter, getYear } from "date-fns";
 import { Fragment } from "react";
 import monthsNames from "../../dateUtils/dateUtils";
 import Transaction from "../../types/transaction";
 import TotalsFooter from "../TotalsFooter/TotalsFooter";
 
-interface MonthlyProps {
+interface StatsPeriodProps {
+  type: "year" | "quarter" | "month";
   transactions: Transaction[];
   totalSum: number;
   totalIncome: number;
   totalExpenses: number;
 }
 
-interface MonthInfo {
+interface PeriodInfo {
   name: string;
   index: number;
   expenses: number;
@@ -19,19 +20,26 @@ interface MonthInfo {
   sum: number;
 }
 
-const Monthly = ({
+const StatsPeriod = ({
+  type,
   transactions,
   totalSum,
   totalIncome,
   totalExpenses,
-}: MonthlyProps): JSX.Element => {
-  const monthsInfo: MonthInfo[] = transactions.reduce(
-    (info: MonthInfo[], transaction) => {
-      const monthNumber = getMonth(transaction.date);
-      const monthName = monthsNames[monthNumber];
-      if (info.find((infoObject) => infoObject.name === monthName)) {
+}: StatsPeriodProps): JSX.Element => {
+  const periodInfo: PeriodInfo[] = transactions.reduce(
+    (info: PeriodInfo[], transaction) => {
+      const periodNumber =
+        type === "year"
+          ? getYear(transaction.date)
+          : type === "month"
+          ? getMonth(transaction.date)
+          : getQuarter(transaction.date);
+      const periodName =
+        type === "month" ? monthsNames[periodNumber] : `${periodNumber}`;
+      if (info.find((infoObject) => infoObject.name === periodName)) {
         return info.map((infoObject) =>
-          infoObject.name === monthName
+          infoObject.name === periodName
             ? {
                 ...infoObject,
                 sum: infoObject.sum + transaction.quantity,
@@ -50,8 +58,8 @@ const Monthly = ({
         return [
           ...info,
           {
-            index: monthNumber,
-            name: monthName,
+            index: periodNumber,
+            name: periodName,
             sum: transaction.quantity,
             expenses: transaction.quantity < 0 ? transaction.quantity : 0,
             income: transaction.quantity > 0 ? transaction.quantity : 0,
@@ -62,12 +70,15 @@ const Monthly = ({
     []
   );
 
-  monthsInfo.sort((monthA, monthB) => monthA.index - monthB.index);
+  periodInfo.sort((periodA, periodB) => periodA.index - periodB.index);
+
+  const title =
+    type === "year" ? "Años" : type === "quarter" ? "Trimestres" : "Meses";
 
   return (
     <>
-      <h3>Months</h3>
-      {monthsInfo.map(({ name, expenses, income, sum }) => (
+      <h3>{title}</h3>
+      {periodInfo.map(({ name, expenses, income, sum }) => (
         <Fragment key={name}>
           <h4>{name}</h4>
           <p>Gastos: {expenses.toFixed(2)}€</p>
@@ -84,4 +95,4 @@ const Monthly = ({
   );
 };
 
-export default Monthly;
+export default StatsPeriod;
