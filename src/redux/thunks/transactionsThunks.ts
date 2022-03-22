@@ -18,8 +18,10 @@ import {
 } from "../actions/transactionsActionCreators";
 
 export const loadTransactionsThunk =
-  () => async (dispatch: Dispatch<LoadTransactionsAction>) => {
-    const apiUrl = `${process.env.REACT_APP_API_URL}transactions`;
+  (search?: string) => async (dispatch: Dispatch<LoadTransactionsAction>) => {
+    const apiUrl = `${process.env.REACT_APP_API_URL}transactions${
+      search ? `?search=${search}` : ""
+    }`;
     const { data } = await axios.get<{
       transactions: Transaction[];
       expenses: number;

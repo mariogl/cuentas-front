@@ -6,6 +6,7 @@ import { loadTransactionsThunk } from "../../redux/thunks/transactionsThunks";
 import Transaction from "../../types/transaction";
 import { TransactionsState } from "../../redux/reducer/transactionsReducer";
 import TotalsFooter from "../../components/TotalsFooter/TotalsFooter";
+import Search from "../../components/Search/Search";
 
 const TransactionsListPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const TransactionsListPage = (): JSX.Element => {
 
   return (
     <>
+      <Search />
       <TransactionsList transactions={transactions} />
       <TotalsFooter sum={sum} income={income} expenses={expenses} />
     </>
