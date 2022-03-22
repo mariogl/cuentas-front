@@ -6,6 +6,7 @@ const routes = {
   filterTagWithId: (id: string) => `/transactions/tag/${id}`,
   filterTag: "/transactions/tag/:id",
   uploadXLSX: "/upload-data",
+  stats: "/stats",
 };
 
 export default routes;
