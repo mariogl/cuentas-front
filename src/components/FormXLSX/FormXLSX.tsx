@@ -42,7 +42,7 @@ const FormXLSX = (): JSX.Element => {
       <Row>
         <Col xs={6}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Descripción</Form.Label>
+            <Form.Label>Archivo .xlsx</Form.Label>
             <Form.Control
               type="file"
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

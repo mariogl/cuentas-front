@@ -32,13 +32,16 @@ export const loadTransactionsThunk =
         authorization: `Bearer ${process.env.REACT_APP_TEMPORARY_JWT}`,
       },
     });
+
+    const transactions: Transaction[] = data.transactions.map(
+      (transaction) => ({
+        ...transaction,
+        date: new Date(transaction.date),
+      })
+    );
+
     dispatch(
-      loadTransactionsAction(
-        data.transactions,
-        data.expenses,
-        data.income,
-        data.sum
-      )
+      loadTransactionsAction(transactions, data.expenses, data.income, data.sum)
     );
   };
 
