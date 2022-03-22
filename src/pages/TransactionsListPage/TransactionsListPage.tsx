@@ -5,12 +5,17 @@ import RootState from "../../types/store";
 import { loadTransactionsThunk } from "../../redux/thunks/transactionsThunks";
 import Transaction from "../../types/transaction";
 import { TransactionsState } from "../../redux/reducer/transactionsReducer";
+import TotalsFooter from "../../components/TotalsFooter/TotalsFooter";
 
 const TransactionsListPage = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { list: transactionsList, filterBy }: TransactionsState = useSelector(
-    (state: RootState) => state.transactions
-  );
+  const {
+    list: transactionsList,
+    sum,
+    expenses,
+    income,
+    filterBy,
+  }: TransactionsState = useSelector((state: RootState) => state.transactions);
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
@@ -28,7 +33,12 @@ const TransactionsListPage = (): JSX.Element => {
     dispatch(loadTransactionsThunk());
   }, [dispatch]);
 
-  return <TransactionsList transactions={transactions} />;
+  return (
+    <>
+      <TransactionsList transactions={transactions} />
+      <TotalsFooter sum={sum} income={income} expenses={expenses} />
+    </>
+  );
 };
 
 export default TransactionsListPage;
