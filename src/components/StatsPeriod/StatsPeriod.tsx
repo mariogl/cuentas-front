@@ -84,7 +84,7 @@ const StatsPeriod = ({
     []
   );
 
-  periodInfo.sort((periodA, periodB) => periodA.index - periodB.index);
+  periodInfo.reverse();
 
   const title =
     type === Periods.years
