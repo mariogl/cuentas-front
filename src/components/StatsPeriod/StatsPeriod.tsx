@@ -30,14 +30,27 @@ const StatsPeriod = ({
 }: StatsPeriodProps): JSX.Element => {
   const periodInfo: PeriodInfo[] = transactions.reduce(
     (info: PeriodInfo[], transaction) => {
-      const periodNumber =
-        type === Periods.years
-          ? getYear(transaction.date)
-          : type === Periods.months
-          ? getMonth(transaction.date)
-          : getQuarter(transaction.date);
-      const periodName =
-        type === Periods.months ? monthsNames[periodNumber] : `${periodNumber}`;
+      const yearNumber = getYear(transaction.date);
+      const quarterNumber = getQuarter(transaction.date);
+      const monthNumber = getMonth(transaction.date);
+
+      let periodName: string;
+      let periodNumber: number;
+      switch (type) {
+        case Periods.years:
+          periodName = `${yearNumber}`;
+          periodNumber = yearNumber;
+          break;
+        case Periods.quarters:
+          periodName = `${quarterNumber}T ${yearNumber}`;
+          periodNumber = quarterNumber;
+          break;
+        case Periods.months:
+          periodName = `${monthsNames[monthNumber]} ${yearNumber}`;
+          periodNumber = monthNumber;
+          break;
+      }
+
       if (info.find((infoObject) => infoObject.name === periodName)) {
         return info.map((infoObject) =>
           infoObject.name === periodName
