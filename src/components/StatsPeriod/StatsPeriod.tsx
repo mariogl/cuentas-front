@@ -1,11 +1,12 @@
 import { getMonth, getQuarter, getYear } from "date-fns";
 import { Fragment } from "react";
 import monthsNames from "../../dateUtils/dateUtils";
+import Periods from "../../types/periods";
 import Transaction from "../../types/transaction";
 import TotalsFooter from "../TotalsFooter/TotalsFooter";
 
 interface StatsPeriodProps {
-  type: "year" | "quarter" | "month";
+  type: Periods;
   transactions: Transaction[];
   totalSum: number;
   totalIncome: number;
@@ -30,13 +31,13 @@ const StatsPeriod = ({
   const periodInfo: PeriodInfo[] = transactions.reduce(
     (info: PeriodInfo[], transaction) => {
       const periodNumber =
-        type === "year"
+        type === Periods.years
           ? getYear(transaction.date)
-          : type === "month"
+          : type === Periods.months
           ? getMonth(transaction.date)
           : getQuarter(transaction.date);
       const periodName =
-        type === "month" ? monthsNames[periodNumber] : `${periodNumber}`;
+        type === Periods.months ? monthsNames[periodNumber] : `${periodNumber}`;
       if (info.find((infoObject) => infoObject.name === periodName)) {
         return info.map((infoObject) =>
           infoObject.name === periodName
@@ -73,7 +74,11 @@ const StatsPeriod = ({
   periodInfo.sort((periodA, periodB) => periodA.index - periodB.index);
 
   const title =
-    type === "year" ? "Años" : type === "quarter" ? "Trimestres" : "Meses";
+    type === Periods.years
+      ? "Años"
+      : type === Periods.quarters
+      ? "Trimestres"
+      : "Meses";
 
   return (
     <>
