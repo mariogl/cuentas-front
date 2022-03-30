@@ -6,6 +6,7 @@ import {
   DeleteTransactionAction,
   LoadTransactionsAction,
   UpdateTransactionAction,
+  SetTransactionsCategoryBulkAction,
 } from "../../types/actions";
 import Tag from "../../types/tag";
 import Transaction from "../../types/transaction";
@@ -105,4 +106,22 @@ export const deleteTransactionThunk =
       },
     });
     dispatch(deleteTransactionAction(id));
+  };
+
+export const setTransactionsCategoryBulkThunk =
+  (transactionsIds: string[], categoryId: string) =>
+  async (dispatch: Dispatch<SetTransactionsCategoryBulkAction>) => {
+    const apiUrl = `${process.env.REACT_APP_API_URL}transactions/bulk-category`;
+    await axios.put<{}>(
+      apiUrl,
+      {
+        ids: transactionsIds,
+        category: categoryId !== "" ? categoryId : 0,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${process.env.REACT_APP_TEMPORARY_JWT}`,
+        },
+      }
+    );
   };

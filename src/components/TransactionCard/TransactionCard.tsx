@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   StyledArticle,
   StyledCategory,
+  StyledCheckbox,
   StyledClose,
   StyledDate,
   StyledDescription,
@@ -12,15 +13,19 @@ import {
 import Transaction from "../../types/transaction";
 import routes from "../../routes";
 import { Col } from "react-bootstrap";
-import { SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
 import FormTag from "../FormTag/FormTag";
 
 interface TransactionCardProps {
   transaction: Transaction;
+  selectedTransactions: string[];
+  onToggleTransaction: (transactionId: string) => void;
 }
 
 const TransactionCard = ({
   transaction: { id, category, tags, description, quantity, balance, date },
+  selectedTransactions,
+  onToggleTransaction,
 }: TransactionCardProps): JSX.Element => {
   const [addingTag, setAddingTag] = useState(false);
 
@@ -41,10 +46,21 @@ const TransactionCard = ({
     </span>
   ));
 
+  const changeCheckboxes = (event: ChangeEvent<HTMLInputElement>) => {
+    onToggleTransaction(id);
+  };
+
   return (
     <StyledArticle>
       <Col xs={2}>
-        <StyledCategory>{category?.name ?? "Sin categoría"}</StyledCategory>
+        <StyledCategory>
+          <StyledCheckbox
+            type="checkbox"
+            onChange={changeCheckboxes}
+            checked={selectedTransactions.includes(id)}
+          />
+          {category?.name ?? "Sin categoría"}{" "}
+        </StyledCategory>
       </Col>
       <Col xs={6}>
         <StyledDescription>
@@ -78,8 +94,12 @@ const TransactionCard = ({
           )}
         </StyledTags>
       </Col>
-      <Col xs={2}>{quantity}€</Col>
-      <Col xs={2}>{balance}€</Col>
+      <Col xs={2} className="text-end">
+        {quantity}€
+      </Col>
+      <Col xs={2} className="text-end">
+        {balance}€
+      </Col>
     </StyledArticle>
   );
 };
