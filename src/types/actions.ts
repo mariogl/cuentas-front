@@ -35,3 +35,8 @@ export interface AddTagToTransactionAction extends Action {
 export interface DeleteTransactionAction extends Action {
   id: string;
 }
+
+export interface SetTransactionsCategoryBulkAction extends Action {
+  category: Category;
+  transactions: string[];
+}

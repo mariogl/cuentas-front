@@ -15,7 +15,7 @@ const FormTransactionPage = (): JSX.Element => {
     (async () => {
       dispatch(loadCategoriesThunk());
     })();
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   return (
     <>

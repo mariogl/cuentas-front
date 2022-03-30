@@ -4,8 +4,10 @@ import {
   DeleteTransactionAction,
   FilterTransactionsAction,
   LoadTransactionsAction,
+  SetTransactionsCategoryBulkAction,
   UpdateTransactionAction,
 } from "../../types/actions";
+import Category from "../../types/category";
 import Tag from "../../types/tag";
 import Transaction from "../../types/transaction";
 import transactionsActionTypes from "./transactionsActionTypes";
@@ -58,4 +60,13 @@ export const addTagToTransactionAction = (
   type: transactionsActionTypes.addTagToTransaction,
   tag,
   transactionId,
+});
+
+export const setTransactionsCategoryBulkAction = (
+  category: Category,
+  transactionsIds: string[]
+): SetTransactionsCategoryBulkAction => ({
+  type: transactionsActionTypes.setTransactionsCategoryBulk,
+  category,
+  transactions: transactionsIds,
 });

@@ -1,9 +1,9 @@
 import { Row } from "react-bootstrap";
 import { FaPlus, FaTimes } from "react-icons/fa";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const StyledArticle = styled(Row)`
-  padding: 10px;
+  padding-top: 10px;
   padding-bottom: 0;
   position: relative;
   font-size: 16px;
@@ -15,6 +15,16 @@ export const StyledArticle = styled(Row)`
 
 export const StyledCategory = styled.span`
   font-size: 0.9em;
+  button {
+    color: inherit;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    display: none;
+  }
+  &:hover button {
+    display: inline;
+  }
 `;
 
 export const StyledDate = styled.span`
@@ -82,4 +92,11 @@ export const StyledClose = styled(FaTimes)`
   width: 15px;
   height: 15px;
   padding: 2px;
+`;
+
+export const StyledCheckbox = styled.input`
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-right: 10px;
 `;

@@ -5,6 +5,7 @@ import {
   DeleteTransactionAction,
   FilterTransactionsAction,
   LoadTransactionsAction,
+  SetTransactionsCategoryBulkAction,
   UpdateTransactionAction,
 } from "../../types/actions";
 import Transaction from "../../types/transaction";
@@ -90,6 +91,24 @@ const transactionsReducer = (
         ),
       };
       break;
+
+    case transactionsActionTypes.setTransactionsCategoryBulk:
+      newTransactions = {
+        ...transactions,
+        list: transactions.list.map<Transaction>((transaction) =>
+          (action as SetTransactionsCategoryBulkAction).transactions.includes(
+            transaction.id
+          )
+            ? {
+                ...transaction,
+                category: (action as SetTransactionsCategoryBulkAction)
+                  .category,
+              }
+            : { ...transaction }
+        ),
+      };
+      break;
+
     default:
       newTransactions = transactions;
   }

@@ -5,6 +5,7 @@ const transactionsActionTypes = {
   updateTransaction: "edit-transaction",
   deleteTransaction: "delete-transaction",
   addTagToTransaction: "add-tag-to-transaction",
+  setTransactionsCategoryBulk: "bulk-set-transactions-category",
 };
 
 export default transactionsActionTypes;
